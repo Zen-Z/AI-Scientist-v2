@@ -1,6 +1,5 @@
 from functools import wraps
 from typing import Dict, Optional, List
-import tiktoken
 from collections import defaultdict
 import asyncio
 from datetime import datetime
@@ -150,8 +149,8 @@ def track_token_usage(func):
                 "Either 'prompt' or 'system_message' must be provided for token tracking"
             )
 
-        logging.info("args: ", args)
-        logging.info("kwargs: ", kwargs)
+        logging.info("args: %s", args)
+        logging.info("kwargs: %s", kwargs)
 
         result = await func(*args, **kwargs)
         model = result.model
@@ -192,8 +191,8 @@ def track_token_usage(func):
         result = func(*args, **kwargs)
         model = result.model
         timestamp = result.created
-        logging.info("args: ", args)
-        logging.info("kwargs: ", kwargs)
+        logging.info("args: %s", args)
+        logging.info("kwargs: %s", kwargs)
 
         if hasattr(result, "usage"):
             token_tracker.add_tokens(
